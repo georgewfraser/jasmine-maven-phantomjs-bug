@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fivetran</groupId>
+    <artifactId>maven-jasmine-phantomjs</artifactId>
+    <version>0.0.1</version>
+
+    <build>
+        <plugins>
+            <!-- Download phantomjs -->
+            <plugin>
+                <groupId>com.github.klieber</groupId>
+                <artifactId>phantomjs-maven-plugin</artifactId>
+                <version>0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <version>1.9.7</version>
+                </configuration>
+            </plugin>
+
+            <!-- Run jasmine tests -->
+            <plugin>
+                <groupId>com.github.searls</groupId>
+                <artifactId>jasmine-maven-plugin</artifactId>
+                <version>1.3.1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <!-- Use phantomjs -->
+                    <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
+                    <webDriverCapabilities>
+                        <!-- Use auto-installed phantomjs binary -->
+                        <capability>
+                            <name>phantomjs.binary.path</name>
+                            <value>${phantomjs.binary}</value>
+                        </capability>
+                    </webDriverCapabilities>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
